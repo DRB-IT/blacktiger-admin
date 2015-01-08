@@ -19,7 +19,7 @@ module.exports = function (grunt) {
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
-    buildFolder: 'dist/blacktiger-controller'
+    buildFolder: 'dist/blacktiger-admin'
   };
 
   // Define the configuration for all the tasks
@@ -367,7 +367,7 @@ module.exports = function (grunt) {
     compress: {
         main: {
             options: {
-                archive: '<%= yeoman.dist %>/blacktiger-controller.zip',
+                archive: '<%= yeoman.dist %>/blacktiger-admin.zip',
                 mode: 'zip'
             },
             files: [

@@ -1,6 +1,6 @@
 {
-  "name": "blacktiger-controller",
-  "version": "2.1.0",
+  "name": "blacktiger-admin",
+  "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
