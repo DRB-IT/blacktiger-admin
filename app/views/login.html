@@ -1,0 +1,24 @@
+
+<div class="alert alert-info" ng-class="{'hidden':status!=null}" translate="LOGIN.ALERT"></div>
+<div class="alert alert-danger" ng-class="{'hidden':status!='invalid'}" translate="LOGIN.INVALID_CREDENTIALS"></div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <form id="loginform">
+            <div class="form-group">
+                <label for="login-username" translate="LOGIN.USERNAME"></label>
+                <input type="text" class="form-control" ng-model="username">
+            </div>
+            <div class="form-group">
+                <label for="login-password" translate="LOGIN.PASSWORD"></label>
+                <input type="password" class="form-control" ng-model="password">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="rememberMe"> <span translate="LOGIN.REMEMBER_ME"></span>
+                </label>
+            </div>
+            <button type="submit" ng-click="login()" class="btn btn-primary" translate="LOGIN.LOG_IN"></button>
+            <a href="#!/request_password" class="btn btn-default" translate="LOGIN.FORGOT_PASSWORD"></a>
+        </form>
+    </div>
+</div>

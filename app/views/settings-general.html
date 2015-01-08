@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-4">
+        <div class="list-group" ng-if="context.hasContactInformation()">
+            <a class="list-group-item active" href="#!/settings" translate="SETTINGS.GENERAL.TITLE"></a>
+            <a class="list-group-item" href="#!/settings/create-listener" translate="SETTINGS.CREATE_SIP_ACCOUNT.TITLE"></a>
+            <a class="list-group-item" href="#!/settings/contact" translate="SETTINGS.CONTACT.TITLE"></a>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <h3 translate="SETTINGS.GENERAL.TITLE"></h3>
+        <p>
+            <span translate="SETTINGS.GENERAL.LOGGED_IN_AS" translate-values='{ postalCode:context.room.postalCode, city:context.room.city}'></span><span ng-if="context.room.hallNumber && context.room.hallNumber.length > 0"><b>, {{ 'GENERAL.HALL' | translate }} {{context.room.hallNumber}}</b></span>
+            <button class="btn btn-warning btn-xs" ng-click="logout()" translate="GENERAL.LOGOUT"></button>
+        </p>
+        <p>
+            <span translate="SETTINGS.GENERAL.CAN_DISCONNECT"></span>
+            <input type="checkbox" ng-model="canDisconnectCalls" ng-true-value="'True'" ng-false-value="'False'">
+        </p>
+        <p>
+            <span translate="SETTINGS.GENERAL.TECHNICALLY_RESPONSIBLE" translate-values='{ name: context.room.contact.name}'></span>
+            (<a translate="SETTINGS.GENERAL.CONTACT_LINK" translate-values='{ name: context.room.contact.name}' href="#!/settings/contact" style="cursor: pointer;"></a>).
+        </p>
+        <br>
+        <h4 translate="SETTINGS.GENERAL.FIND_HELP"></h4>
+        <p translate="SETTINGS.GENERAL.FIND_HELP_DESC"></p>
+    </div>
+
+
+</div>

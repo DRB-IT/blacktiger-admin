@@ -1,0 +1,88 @@
+<h3>Realtid oversigt</h3>
+<div class="row">
+    <div class="col-sm-4">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th colspan="2"><span class="glyphicon glyphicon-user"></span> Linjer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Sale</td>
+                <td class="text-right">{{getNoOfRooms() | number}}</td>
+            </tr>
+            <tr>
+                <td>Lyttere</td>
+                <td class="text-right">{{getNoOfParticipants() | number}}</td>
+            </tr>
+            <tr>
+                <td>Lyttere pr. sal</td>
+                <td class="text-right">{{getNoOfParticipantsPerRoom() | number:1}}</td>
+            </tr>
+            <tr>
+                <td>Lyttere via computer</td>
+                <td class="text-right">{{getSipPercentage() | number:1}} %</td>
+            </tr>
+            <tr>
+                <td>Lyttere via telefon</td>
+                <td class="text-right">{{getPhonePercentage() | number:1}} %</td>
+            </tr>
+            <tr>
+                <td>Ønsker at svare</td>
+                <td class="text-right">{{getNoOfCommentRequests()}}</td>
+            </tr>
+            <tr>
+                <td>Svarmikrofon åben</td>
+                <td class="text-right">{{getNoOfOpenMicrophones()}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th colspan="2"><span class="glyphicon glyphicon-hdd"></span> Server</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Net</td>
+                <td class="text-right">{{system.load.net | number:1}} %</td>
+            </tr>
+            <tr>
+                <td>Disk</td>
+                <td class="text-right">{{system.load.disk | number:1}} %</td>
+            </tr>
+            <tr>
+                <td>CPU</td>
+                <td class="text-right">{{system.load.cpu | number:1}} %</td>
+            </tr>
+            <tr>
+                <td>RAM</td>
+                <td class="text-right">{{system.load.memory | number:1}} %</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th colspan="2"><span class="glyphicon glyphicon-signal"></span> Load average</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="2" class="text-muted">Load average / {{system.cores}} CPU cores</td>
+            </tr>
+            <tr>
+                <td>1m</td>
+                <td class="text-right">{{system.averageCpuLoad.oneMinute | number:1}} %</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
