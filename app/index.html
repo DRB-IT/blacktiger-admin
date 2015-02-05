@@ -40,9 +40,6 @@
                 <div class="col-sm-10 col-sm-offset-1" id="ContentContainer" ng-view></div>
             </div>
             <div class="row" id="FooterContainer">
-                <div class="col-xs-9" ng-controller="RoomDisplayCtrl" >
-                    <small ng-if="context.room && context.hasContactInformation()"><bt-room-info room="context.room" contact-link="#!/settings/contact"></bt-room-info></small>
-                </div>
                 <div class="col-xs-3 text-right" title="logged in as {{currentUser.username}} with {{currentUser.roles}}">
                     <small class="text-muted" translate="SYSTEM.COPYRIGHTHOLDER"></small>
                 </div>
@@ -66,18 +63,7 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -103,27 +89,14 @@
         <script src="scripts/directives/_init.js"></script>
         <script src="scripts/filters/_init.js"></script>
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/contact.js"></script>
-        <script src="scripts/controllers/create-sip-account.js"></script>
         <script src="scripts/controllers/history.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/menu.js"></script>
         <script src="scripts/controllers/realtime.js"></script>
-        <script src="scripts/controllers/request-password.js"></script>
-        <script src="scripts/controllers/room-display.js"></script>
-        <script src="scripts/controllers/settings.js"></script>
-        <script src="scripts/controllers/sip-account-retrieval.js"></script>
         <script src="scripts/directives/capitalize.js"></script>
         <script src="scripts/directives/numbericon.js"></script>
-        <script src="scripts/directives/roomstatus.js"></script>
-        <script src="scripts/directives/roominfo.js"></script>
         <script src="scripts/directives/duration.js"></script>
-        <script src="scripts/directives/meetingroom.js"></script>
-        <script src="scripts/directives/history.js"></script>
         <script src="scripts/directives/modalwindow.js"></script>
-        <script src="scripts/directives/commentalert.js"></script>
-        <script src="scripts/directives/musicplayer.js"></script>
-        <script src="scripts/directives/commentrequesthighlighter.js"></script>
         <script src="scripts/filters/timespan.js"></script>
         <script src="scripts/filters/filterbyroles.js"></script>
         <script src="scripts/i18n/message-locales.js"></script>

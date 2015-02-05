@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var blacktigerApp = angular.module('blacktiger-app', [
+var blacktigerApp = angular.module('blacktiger-admin', [
     'blacktiger-controllers',
     'blacktiger-directives',
     'blacktiger-filters',
@@ -29,9 +29,10 @@ blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider,
             token, params = [],
             search, list, elements;
 
-    $locationProvider.html5Mode(false);
-    $locationProvider.hashPrefix('!');
-
+    if (CONFIG.serviceUrl) {
+        blacktigerProvider.setServiceUrl(CONFIG.serviceUrl);
+    }
+    
     // SECURITY (forward to login if not authorized)
     $httpProvider.interceptors.push(function ($location) {
         return {
@@ -44,87 +45,27 @@ blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider,
         };
     });
 
-    // Find params
-    search = window.location.search;
-    if (search.length > 0 && search.charAt(0) === '?') {
-        search = search.substring(1);
-        list = search.split('&');
-        angular.forEach(list, function (entry) {
-            elements = entry.split('=');
-            if (elements.length > 1) {
-                params[elements[0]] = elements[1];
-            }
-        });
-    }
-
-    if (CONFIG.serviceUrl) {
-        blacktigerProvider.setServiceUrl(CONFIG.serviceUrl);
-    }
-
-    if (angular.isDefined(params.token)) {
-        mode = 'token';
-        token = params.token;
-    }
-
-    if (mode === 'normal') {
-        $routeProvider.
-                when('/', {
-                    templateUrl: 'views/room.html'
-                }).
-                when('/login', {
-                    controller: 'LoginCtrl',
-                    templateUrl: 'views/login.html'
-                }).
-                when('/request_password', {
-                    controller: 'RequestPasswordCtrl',
-                    templateUrl: 'views/request-password.html'
-                }).
-                when('/settings', {
-                    controller: 'SettingsCtrl',
-                    templateUrl: 'views/settings-general.html'
-                }).
-                when('/settings/contact', {
-                    controller: 'ContactCtrl',
-                    templateUrl: 'views/settings-contact.html'
-                }).
-                when('/settings/create-listener', {
-                    controller: 'CreateSipAccountCtrl',
-                    templateUrl: 'views/settings-create-listener.html'
-                }).
-                when('/admin/realtime', {
-                    controller: 'RealtimeCtrl',
-                    templateUrl: 'views/realtime-status.html'
-                }).
-                when('/admin/history', {
-                    controller: 'HistoryCtrl',
-                    templateUrl: 'views/system-history.html'
-                }).
-                otherwise({
-                    redirectTo: '/'
-                });
-    }
-
-    if (mode === 'token') {
-        $routeProvider.
-                when('/', {
-                    controller: 'SipAccountRetrievalCtrl',
-                    templateUrl: 'views/sipaccount-retrieve.html',
-                    resolve: {
-                        token: function () {
-                            return token;
-                        }
-                    }
-                }).
-                otherwise({
-                    redirectTo: '/'
-                });
-    }
+    $routeProvider.
+            when('/login', {
+                controller: 'LoginCtrl',
+                templateUrl: 'views/login.html'
+            }).
+            when('/', {
+                controller: 'RealtimeCtrl',
+                templateUrl: 'views/realtime-status.html'
+            }).
+            when('/history', {
+                controller: 'HistoryCtrl',
+                templateUrl: 'views/system-history.html'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
 
 
-    // REMARK: If BLACKTIGER_VERSION has been set, we will load from a yui-compressed file
     $translateProvider.useStaticFilesLoader({
         prefix: 'scripts/i18n/blacktiger-locale-',
-        suffix: /*BLACKTIGER_VERSION ? '-' + BLACKTIGER_VERSION + '.json' : */'.json'
+        suffix: '.json'
     });
 
     $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
@@ -156,16 +97,6 @@ blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider,
 blacktigerApp.run(function (CONFIG, blacktiger, $location, LoginSvc, $rootScope, PushEventSvc, MeetingSvc, AutoCommentRequestCancelSvc, $log) {
     // The context object is a holder of information for the current session
     $rootScope.context = {};
-    $rootScope.context.hasContactInformation = function () {
-        var room = $rootScope.context.room;
-        return room && !(!room.contact.name || room.contact.name === '' ||
-                !room.contact.email || room.contact.email === '' ||
-                !room.contact.phoneNumber || room.contact.phoneNumber === '');
-    };
-
-    if (CONFIG.serviceUrl) {
-        blacktiger.setServiceUrl(CONFIG.serviceUrl);
-    }
 
     LoginSvc.authenticate().then(angular.noop, function () {
         $location.path('login');
@@ -173,43 +104,16 @@ blacktigerApp.run(function (CONFIG, blacktiger, $location, LoginSvc, $rootScope,
 
     $rootScope.$on('afterLogout', function () {
         $rootScope.rooms = null;
-        $rootScope.updateCurrentRoom();
         $location.path('login');
     });
 
     $rootScope.$on('login', function (event, user) {
-        if (user.roles.indexOf('ROLE_HOST') >= 0) {
-            $location.path('');
-        } else if (user.roles.indexOf('ROLE_ADMIN') >= 0) {
-            $location.path('/admin/realtime');
-        }
-
-        PushEventSvc.connect().then($rootScope.updateCurrentRoom);
+        $location.path('');
+        PushEventSvc.connect();
     });
 
-    $rootScope.updateCurrentRoom = function () {
-        var ids = MeetingSvc.findAllIds();
-        if ($rootScope.currentUser && $rootScope.currentUser.roles.indexOf('ROLE_HOST') >= 0 && ids.length > 0) {
-            $rootScope.context.room = MeetingSvc.findRoom(ids[0]);
-        } else {
-            $rootScope.context.room = null;
-        }
-    };
 
     $rootScope.$on('MeetingSvc.Initialized', $rootScope.updateCurrentRoom);
-
-    $rootScope.$watch('context.room', function (room) {
-        if (room && !$rootScope.context.hasContactInformation()) {
-            $location.path('/settings/contact');
-        }
-    });
-
-    $rootScope.$on('$locationChangeStart', function () {
-        $log.debug('location change started', $location.url());
-    });
-    $rootScope.$on('$locationChangeSuccess', function () {
-        $log.debug('location change ended', $location.url());
-    });
 
     AutoCommentRequestCancelSvc.start();
 });
@@ -235,17 +139,17 @@ angular.element(document).ready(function () {
         commentRequestTimeout: 60000,
         hightlightTimeout: 15000
     };
-                
-    var initApp = function(config) {
+
+    var initApp = function (config) {
         blacktigerApp.constant('CONFIG', config);
         blacktigerApp.constant('languages', languageNames);
-        angular.bootstrap(document, ['blacktiger-app']);
+        angular.bootstrap(document, ['blacktiger-admin']);
     };
     $http.get('config.json').then(
             function (response) {
                 initApp(response.data);
             },
-            function(reason) {
+            function (reason) {
                 console.info('Could not load config. Using default config. ' + reason.data);
                 initApp(defaultConfig);
             }

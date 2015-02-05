@@ -12,29 +12,6 @@ angular.module('blacktiger-controllers')
             $scope.links = [
                 {
                     url: '#!/',
-                    name: 'NAVIGATION.PARTICIPANTS',
-                    icon: 'user',
-                    requiredRole: 'ROLE_HOST'
-                },
-                {
-                    url: '#!/settings',
-                    name: 'NAVIGATION.SETTINGS',
-                    icon: 'cog',
-                    requiredRole: 'ROLE_HOST'
-                },
-                {
-                    url: function () {
-                        var url = CONFIG.RootHelp;
-                        url = url.replace('{%1}', $scope.language);
-                        return url;
-                    },
-                    name: 'NAVIGATION.HELP',
-                    icon: 'question-sign',
-                    requiredRole: 'ROLE_HOST',
-                    target: '_blank'
-                },
-                {
-                    url: '#!/admin/realtime',
                     name: 'NAVIGATION.ADMIN.REALTIME',
                     icon: 'transfer',
                     requiredRole: 'ROLE_ADMIN'
