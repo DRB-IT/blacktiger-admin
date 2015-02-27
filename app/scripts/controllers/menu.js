@@ -8,71 +8,13 @@
  * Controller of the blacktiger-app
  */
 angular.module('blacktiger-controllers')
-        .controller('MenuCtrl', function ($scope, languages, $rootScope, $translate, CONFIG, $filter, $location, $window) {
-            $scope.links = [
-                {
-                    url: '#!/',
-                    name: 'NAVIGATION.ADMIN.REALTIME',
-                    icon: 'transfer',
-                    requiredRole: 'ROLE_ADMIN'
-                },
-                {
-                    url: '#!/admin/history',
-                    name: 'NAVIGATION.ADMIN.HISTORY',
-                    icon: 'calendar',
-                    requiredRole: 'ROLE_ADMIN'
-                }
-            ];
-
-            $scope.getUrl = function (link) {
-                if (angular.isFunction(link.url)) {
-                    return link.url();
-                } else {
-                    return link.url;
-                }
+        .controller('MenuCtrl', function ($scope, LoginSvc, $rootScope, translateFilter, $window) {
+            
+            $scope.logout = function() {
+                LoginSvc.deauthenticate();
             };
-
-            $scope.isActiveLink = function (link) {
-                var url = $scope.getUrl(link);
-                var linkPath = url.substring(2);
-                var currentPath = $location.path();
-
-                if ('/' === currentPath && '/' === linkPath) {
-                    return true;
-                } else if ('/' !== linkPath) {
-                    return linkPath === (currentPath.length > linkPath.length ? currentPath.substring(0, linkPath.length) : currentPath);
-                } else {
-                    return false;
-                }
-            };
-
-            $scope.languages = [{
-                    locale: 'da',
-                    'localizedLanguage': 'Dansk'
-                }];
-
-            $scope.$watch('language', function () {
-                if ($scope.language !== undefined && $scope.language !== $translate.use()) {
-                    $translate.use($scope.language);
-                }
-            });
-
-            $rootScope.$on('$translateChangeSuccess', function () {
-                $scope.language = $translate.use();
-                $scope.languages = [];
-                angular.forEach(languages, function (value, key) {
-                    $translate('GENERAL.LANGUAGE.' + key.toUpperCase()).then(function (translation) {
-                        $scope.languages.push({
-                            locale: key,
-                            localizedLanguage: translation,
-                            language: value
-                        });
-                    });
-                });
-
-            });
-
+            
             $rootScope.$on('PushEventSvc.Lost_Connection', function () {
-                $window.alert($filter('translate')('GENERAL.LOST_CONNECTION'));
+                $window.alert(translateFilter('GENERAL.LOST_CONNECTION'));
             });
         });

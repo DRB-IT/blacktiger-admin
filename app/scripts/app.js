@@ -19,16 +19,13 @@ var blacktigerApp = angular.module('blacktiger-admin', [
     'ngSanitize',
     'ngTouch',
     'pascalprecht.translate',
-    'ui.bootstrap',
     'blacktiger',
-    'teljs'
+    'teljs',
+    'ngMaterial'
 ]);
 
-blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG) {
-    var mode = 'normal',
-            token, params = [],
-            search, list, elements;
-
+blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG) {
+    
     if (CONFIG.serviceUrl) {
         blacktigerProvider.setServiceUrl(CONFIG.serviceUrl);
     }
@@ -48,7 +45,7 @@ blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider,
     $routeProvider.
             when('/login', {
                 controller: 'LoginCtrl',
-                templateUrl: 'views/login.html'
+                templateUrl: 'views/blank.html'
             }).
             when('/', {
                 controller: 'RealtimeCtrl',
@@ -94,7 +91,7 @@ blacktigerApp.config(function ($locationProvider, $routeProvider, $httpProvider,
     });
 });
 
-blacktigerApp.run(function (CONFIG, blacktiger, $location, LoginSvc, $rootScope, PushEventSvc, MeetingSvc, AutoCommentRequestCancelSvc, $log) {
+blacktigerApp.run(function ($location, LoginSvc, $rootScope, PushEventSvc, AutoCommentRequestCancelSvc) {
     // The context object is a holder of information for the current session
     $rootScope.context = {};
 
@@ -107,7 +104,7 @@ blacktigerApp.run(function (CONFIG, blacktiger, $location, LoginSvc, $rootScope,
         $location.path('login');
     });
 
-    $rootScope.$on('login', function (event, user) {
+    $rootScope.$on('login', function () {
         $location.path('');
         PushEventSvc.connect();
     });
