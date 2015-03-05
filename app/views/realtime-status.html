@@ -1,47 +1,52 @@
 
- <md-button ng-click="reload($event)" class="md-fab md-fab-bottom-right" aria-label="Refresh">
-    <md-icon md-svg-src="images/icons/ic_autorenew_24px.svg"></md-icon>
-</md-button>
+<!--md-button ng-click="reload($event)" class="md-fab md-fab-bottom-right" aria-label="Refresh">
+   <md-icon md-svg-src="images/icons/ic_autorenew_24px.svg"></md-icon>
+</md-button-->
 <div layout="column">
     <div layout="row" layout-padding>
         <div flex layout="column">
-            <md-toolbar class="md-accent">
-                <h2 class="md-toolbar-tools">
-                    <span>Linjer</span>
-                </h2>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span>Lines</span>
+                    <!-- fill up the space between left and right area -->
+                    <span flex></span>
+                    <md-button ng-click="selectArea($event)" class="md-raised md-accent">
+                        {{areaCode ? areaCode : 'All'}}
+                    </md-button>
+                </div>
             </md-toolbar>
 
             <md-input-container class="md-input-has-value">
-                <label>Sale</label>
+                <label>Halls</label>
                 <input type="text" value="{{data.noOfRooms}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Lyttere</label>
+                <label>Listeners</label>
                 <input type="text" value="{{data.noOfParticipants}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Lyttere pr. sal</label>
+                <label>Listeners per Hall</label>
                 <input type="text" value="{{data.noOfParticipantsPerRoom}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Lyttere via computer</label>
-                <input type="text" value="{{data.sipPercentage | number:1}} %" ng-disabled="true">
+                <label>Listeners via Computer</label>
+                <input type="text" value="{{data.sipPercentage| number:1}} %" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Lyttere via telefon</label>
+                <label>Listeners via Phone</label>
                 <input type="text" value="{{data.phonePercentage| number:1}} %" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Ønsker at svarer</label>
+                <label>Comment Requests</label>
                 <input type="text" value="{{data.noOfCommentRequests}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Svarmikrofon åben</label>
+                <label>Open Microphones</label>
                 <input type="text" value="{{data.noOfOpenMicrophones}}" ng-disabled="true">
             </md-input-container>
         </div>
         <div flex layout="column">
-            <md-toolbar class="md-accent">
+            <md-toolbar>
                 <h2 class="md-toolbar-tools">
                     <span>Server</span>
                 </h2>
@@ -55,16 +60,16 @@
                 <input type="text" value="{{system.load.disk|number:1}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Cpu</label>
+                <label>CPU</label>
                 <input type="text" value="{{system.load.cpu|number:1}}" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-input-has-value">
-                <label>Ram</label>
+                <label>RAM</label>
                 <input type="text" value="{{system.load.memory|number:1}}" ng-disabled="true">
             </md-input-container>
         </div>
         <div flex layout="column">
-            <md-toolbar class="md-accent">
+            <md-toolbar>
                 <h2 class="md-toolbar-tools">
                     <span>Load Average ({{system.cores}} cores)</span>
                 </h2>
