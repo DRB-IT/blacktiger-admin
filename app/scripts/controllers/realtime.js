@@ -18,30 +18,33 @@ angular.module('blacktiger-controllers')
                 $scope.data.noOfParticipants = 0;
                 $scope.data.noOfCommentRequests = 0;
                 $scope.data.noOfOpenMicrophones = 0;
+                $scope.rooms = [];
                 var sipCalls = 0;
-                
-                angular.forEach(MeetingSvc.findAllIds(), function(id) {
-                   var room = MeetingSvc.findRoom(id);
-                   if(!$scope.areaCode || room.countryCallingCode === $scope.areaCode) {
-                       $scope.data.noOfRooms++;
-                       angular.forEach(room.participants, function(participant) {
-                          if(participant.host === false) {
-                              $scope.data.noOfParticipants++;
-                              
-                              if(!participant.muted) {
-                                  $scope.data.noOfOpenMicrophones++;
-                              }
-                              
-                              if(participant.commentRequested) {
-                                  $scope.data.noOfCommentRequests++;
-                              }
-                              
-                              if(participant.type === 'Sip') {
-                                  sipCalls++;
-                              }
-                          } 
-                       });
-                   }
+
+                angular.forEach(MeetingSvc.findAllIds(), function (id) {
+                    var room = MeetingSvc.findRoom(id);
+                    if (!$scope.areaCode || room.countryCallingCode === $scope.areaCode) {
+                        $scope.data.noOfRooms++;
+
+                        $scope.rooms.push(room);
+                        angular.forEach(room.participants, function (participant) {
+                            if (participant.host === false) {
+                                $scope.data.noOfParticipants++;
+
+                                if (!participant.muted) {
+                                    $scope.data.noOfOpenMicrophones++;
+                                }
+
+                                if (participant.commentRequested) {
+                                    $scope.data.noOfCommentRequests++;
+                                }
+
+                                if (participant.type === 'Sip') {
+                                    sipCalls++;
+                                }
+                            }
+                        });
+                    }
                 });
                 $scope.data.noOfParticipantsPerRoom = $scope.data.noOfRooms === 0 || $scope.data.noOfParticipants === 0 ? 0 : $scope.data.noOfParticipants / $scope.data.noOfRooms;
 
@@ -49,18 +52,18 @@ angular.module('blacktiger-controllers')
                 $scope.data.phonePercentage = $scope.data.noOfParticipants === 0 ? 0.0 : 100 - $scope.data.sipPercentage;
             };
 
-            $scope.resolveActiveAreas = function() {
+            $scope.resolveActiveAreas = function () {
                 var areas = ['All'];
-                
-                angular.forEach(MeetingSvc.findAllIds(), function(id) {
-                   var room = MeetingSvc.findRoom(id);
-                   if(areas.indexOf(room.countryCallingCode)<0) {
-                       areas.push(room.countryCallingCode);
-                   }
-               });
-               return areas;
+
+                angular.forEach(MeetingSvc.findAllIds(), function (id) {
+                    var room = MeetingSvc.findRoom(id);
+                    if (areas.indexOf(room.countryCallingCode) < 0) {
+                        areas.push(room.countryCallingCode);
+                    }
+                });
+                return areas;
             };
-            
+
             $scope.selectArea = function ($event) {
                 $mdDialog.show({
                     targetEvent: $event,
@@ -69,17 +72,17 @@ angular.module('blacktiger-controllers')
                         items: $scope.resolveActiveAreas()
                     },
                     controller: DialogController
-                }).then(function(result) {
+                }).then(function (result) {
                     $scope.areaCode = result !== 'All' ? result : undefined;
                     $scope.buildData();
                 });
                 function DialogController(scope, $mdDialog, items) {
                     scope.items = items;
-                    
-                    scope.select = function(item) {
+
+                    scope.select = function (item) {
                         $mdDialog.hide(item);
                     };
-                    
+
                     scope.closeDialog = function () {
                         $mdDialog.hide();
                     };
