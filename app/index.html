@@ -16,7 +16,7 @@
         <!-- endbuild -->
     </head>
     <body ng-cloak layout="column">
-    <md-toolbar ng-controller="MenuCtrl" class="md-hue-2">
+    <md-toolbar ng-controller="MenuCtrl" class="md-hue-2" ng-class="{'md-medium-tall':system !== null}">
         <h2 class="md-toolbar-tools">
             <span>Telesal Admin</span>
             <span flex></span>
@@ -25,9 +25,17 @@
             </md-button>
 
         </h2>
+        <p ng-if="system !== null" layout="row" layout-align="start end" class="md-toolbar-tools" style="font-size:14px">
+            Net: {{system.load.net|number:1}} | 
+            Disk: {{system.load.disk|number:1}} | 
+            CPU: {{system.load.cpu|number:1}} | 
+            RAM: {{system.load.memory|number:1}} |  
+            Cores: {{system.cores|number:1}} |  
+            1m: {{system.averageCpuLoad.oneMinute|number:1}}
+        </p>
     </md-toolbar>
     <section layout="row" flex>
-       <md-content flex class="md-padding" ng-view>
+        <md-content flex class="md-padding" ng-view>
 
         </md-content>
 
@@ -43,7 +51,6 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-    <script src="bower_components/sockjs/sockjs.js"></script>
     <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
     <script src="bower_components/blacktigerjs/dist/blacktiger.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>

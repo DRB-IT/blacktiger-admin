@@ -8,58 +8,50 @@
  * Used by Admin
  */
 angular.module('blacktiger-controllers')
-        .controller('RealtimeCtrl', function ($scope, SystemSvc, MeetingSvc, $interval, $mdDialog) {
+        .controller('RealtimeCtrl', function ($scope, $mdDialog, SummarySvc, $interval) {
             $scope.system = {};
             $scope.data = {};
+            $scope.areaCode = 'all';
 
-            $scope.buildData = function () {
-                var roomIds = MeetingSvc.findAllIds();
-                $scope.data.noOfRooms = 0;
-                $scope.data.noOfParticipants = 0;
-                $scope.data.noOfCommentRequests = 0;
-                $scope.data.noOfOpenMicrophones = 0;
-                $scope.rooms = [];
-                var sipCalls = 0;
-
-                angular.forEach(MeetingSvc.findAllIds(), function (id) {
-                    var room = MeetingSvc.findRoom(id);
-                    if (!$scope.areaCode || room.countryCallingCode === $scope.areaCode) {
-                        $scope.data.noOfRooms++;
-
-                        $scope.rooms.push(room);
-                        angular.forEach(room.participants, function (participant) {
-                            if (participant.host === false) {
-                                $scope.data.noOfParticipants++;
-
-                                if (!participant.muted) {
-                                    $scope.data.noOfOpenMicrophones++;
-                                }
-
-                                if (participant.commentRequested) {
-                                    $scope.data.noOfCommentRequests++;
-                                }
-
-                                if (participant.type === 'Sip') {
-                                    sipCalls++;
-                                }
-                            }
-                        });
-                    }
+            $scope.loadData = function () {
+                SummarySvc.getSummary().then(function (data) {
+                    $scope.data = data;
                 });
-                $scope.data.noOfParticipantsPerRoom = $scope.data.noOfRooms === 0 || $scope.data.noOfParticipants === 0 ? 0 : $scope.data.noOfParticipants / $scope.data.noOfRooms;
-
-                $scope.data.sipPercentage = sipCalls === 0 ? 0.0 : (sipCalls / $scope.data.noOfParticipants) * 100;
-                $scope.data.phonePercentage = $scope.data.noOfParticipants === 0 ? 0.0 : 100 - $scope.data.sipPercentage;
             };
 
-            $scope.resolveActiveAreas = function () {
-                var areas = ['All'];
+            $scope.participantsPerHall = function () {
+                var data = $scope.data[$scope.areaCode];
+                if (!data || !data.halls || data.halls === 0 || !data.participants || data.participants === 0) {
+                    return 0.0;
+                } else {
+                    return data.participants / data.halls;
+                }
+            };
 
-                angular.forEach(MeetingSvc.findAllIds(), function (id) {
-                    var room = MeetingSvc.findRoom(id);
-                    if (areas.indexOf(room.countryCallingCode) < 0) {
-                        areas.push(room.countryCallingCode);
-                    }
+            $scope.participantPercentageViaSip = function () {
+                var data = $scope.data[$scope.areaCode];
+                if (!data || !data.participants || data.participants === 0) {
+                    return 0.0;
+                } else {
+                    return data.participantsViaSip / data.participants * 100;
+                }
+            };
+
+            $scope.participantPercentageViaPhone = function () {
+                var data = $scope.data[$scope.areaCode];
+                if (!data || !data.participants || data.participants === 0) {
+                    return 0.0;
+                } else {
+                    return 100 - $scope.participantPercentageViaSip();
+                }
+            };
+
+
+            $scope.resolveActiveAreas = function () {
+                var areas = [];
+
+                angular.forEach($scope.data, function (value, key) {
+                    areas.push(key);
                 });
                 return areas;
             };
@@ -73,8 +65,9 @@ angular.module('blacktiger-controllers')
                     },
                     controller: DialogController
                 }).then(function (result) {
-                    $scope.areaCode = result !== 'All' ? result : undefined;
-                    $scope.buildData();
+                    if (result) {
+                        $scope.areaCode = result;
+                    }
                 });
                 function DialogController(scope, $mdDialog, items) {
                     scope.items = items;
@@ -89,37 +82,19 @@ angular.module('blacktiger-controllers')
                 }
             };
 
-            $scope.reload = function (event) {
-                $mdDialog.show(
-                        $mdDialog.alert()
-                        .title('Attention')
-                        .content('This is not yet implemented')
-                        .ok('Close')
-                        .targetEvent(event)
-                        );
-            };
-
-            $scope.updateSystemInfo = function () {
-                SystemSvc.getSystemInfo().then(function (data) {
-                    $scope.system = data;
-                });
-            };
+            $scope.$watch('data[areaCode]', function (area) {
+                if (!area) {
+                    $scope.areaCode = 'all';
+                }
+            })
 
             $scope.$on('$destroy', function () {
-                $interval.cancel($scope.systemInfoTimerPromise);
+                $scope.stopLoad();
             });
 
-            /** WATCHES START **/
-            $scope.$watch(MeetingSvc.getTotalRooms, $scope.buildData);
-            $scope.$watch(MeetingSvc.getTotalParticipants, $scope.buildData);
-            $scope.$watch(function () {
-                return MeetingSvc.getTotalParticipantsByCommentRequested(true);
-            }, $scope.buildData);
-            $scope.$watch(function () {
-                return MeetingSvc.getTotalParticipantsByMuted(false);
-            }, $scope.buildData)
-            /** WATCHES END **/
+            $scope.stopLoad = $interval($scope.loadData, 5000);
+            $scope.loadData();
 
-            $scope.systemInfoTimerPromise = $interval($scope.updateSystemInfo, 5000);
-            $scope.updateSystemInfo();
+
+
         });

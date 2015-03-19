@@ -91,7 +91,7 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider
     });
 });
 
-blacktigerApp.run(function ($location, LoginSvc, $rootScope, PushEventSvc, AutoCommentRequestCancelSvc) {
+blacktigerApp.run(function ($location, LoginSvc, $rootScope/*, PushEventSvc, AutoCommentRequestCancelSvc*/) {
     // The context object is a holder of information for the current session
     $rootScope.context = {};
 
@@ -106,13 +106,12 @@ blacktigerApp.run(function ($location, LoginSvc, $rootScope, PushEventSvc, AutoC
 
     $rootScope.$on('login', function () {
         $location.path('');
-        PushEventSvc.connect();
     });
 
 
-    $rootScope.$on('MeetingSvc.Initialized', $rootScope.updateCurrentRoom);
+    //$rootScope.$on('MeetingSvc.Initialized', $rootScope.updateCurrentRoom);
 
-    AutoCommentRequestCancelSvc.start();
+    //AutoCommentRequestCancelSvc.start();
 });
 
 /** BOOTSTRAP **/
