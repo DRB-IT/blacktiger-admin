@@ -8,7 +8,7 @@
  * Used by Admin
  */
 angular.module('blacktiger-controllers')
-        .controller('RealtimeCtrl', function ($scope, $mdDialog, SummarySvc, $interval) {
+        .controller('RealtimeCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval) {
             $scope.system = {};
             $scope.data = {};
             $scope.areaCode = 'all';
@@ -16,6 +16,15 @@ angular.module('blacktiger-controllers')
             $scope.loadData = function () {
                 SummarySvc.getSummary().then(function (data) {
                     $scope.data = data;
+                });
+                
+                SystemSvc.getSystemInfo().then(function (data) {
+                    //SystemSvc does not reject propery on error
+                    //See https://github.com/DRB-IT/blacktigerjs/issues/14
+                    // Check is the object is not an error beofre using it.
+                    if(!angular.isDefined(data.message)) {
+                        $scope.system = data;
+                    }
                 });
             };
 

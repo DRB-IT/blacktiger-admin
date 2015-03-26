@@ -1,82 +1,142 @@
-<section> 
-    <md-subheader class="md-primary">
-        Lines
-        <md-button ng-click="selectArea($event)" class="md-raised md-accent">
-            {{areaCode ? areaCode : 'all'}}
-        </md-button>
-        
-    </md-subheader>
-    <md-list layout="column">
-        <md-item>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Halls</h3>
-              <p>
-                {{data[areaCode].halls}}
-              </p>
+<section layout="column" style="max-width:864px; margin:auto"> 
+    <md-card>
+        <div layout="column">
+            <div layout="row" style="padding:0px 24px">
+                <div flex="10" style="background:#EFEFEF;font-size:12px;" layout-padding>
+                    <div layout="column">
+                        <div><strong>Avg. CPU</strong></div>
+                        <div>1m: {{system.averageCpuLoad.oneMinute|number:1}}%</div>
+                    </div>
+                    
+                </div>
+                <div flex layout="row" style="border-bottom:1px solid #eee;">
+                    <div flex="25">
+                        <div layout="row" layout-align="center">
+                            <div class="circle-progress-wrapper">
+                                <div class="circle-progress-title">
+                                    {{system.load.net|number:0}}%
+                                </div>
+                                <div class="circle-progress-description">
+                                    Net
+                                </div>
+                                <div
+                                    round-progress
+                                    max="100"
+                                    current="system.load.net"
+                                    radius="50"
+                                    stroke="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="25">
+                        <div layout="row" layout-align="center">
+                            <div class="circle-progress-wrapper">
+                                <div class="circle-progress-title">
+                                    {{system.load.memory|number:0}}%
+                                </div>
+                                <div class="circle-progress-description">
+                                    Memory
+                                </div>
+                                <div
+                                    round-progress
+                                    max="100"
+                                    current="system.load.memory"
+                                    radius="50"
+                                    stroke="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="25">
+                        <div layout="row" layout-align="center">
+                            <div class="circle-progress-wrapper">
+                                <div class="circle-progress-title">
+                                    {{system.load.disk|number:0}}%
+                                </div>
+                                <div class="circle-progress-description">
+                                    Disk
+                                </div>
+                                <div
+                                    round-progress
+                                    max="100"
+                                    current="system.load.disk"
+                                    radius="50"
+                                    stroke="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="25">
+                        <div layout="row" layout-align="center">
+                            <div class="circle-progress-wrapper">
+                                <div class="circle-progress-title">
+                                    {{system.load.cpu|number:0}}%
+                                </div>
+                                <div class="circle-progress-description">
+                                    CPU
+                                </div>
+                                <div
+                                    round-progress
+                                    max="100"
+                                    current="system.load.cpu"
+                                    radius="50"
+                                    stroke="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-          </md-item-content>
-        </md-item>
-        <md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Listeners</h3>
-              <p>
-                {{data[areaCode].participants}}
-              </p>
+
+            <div layout="row" style="padding:24px">
+                <div flex="10">
+                    <md-button class="md-fab" aria-label="Select area" ng-click="selectArea()">
+                        {{areaCode ? areaCode : 'all'}}
+                    </md-button>
+                </div>
+                <div flex layout="row" style="padding:">
+                    <div flex="20">
+                        <div layout="row" layout-align="center center" layout-padding>
+                            <div class="md-whiteframe-z1" flex title="Number of halls active">
+                                <md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon>&nbsp;{{data[areaCode].halls}}
+                            </div>
+                        </div>
+                            
+                    </div>
+                    <div flex="20">
+                        <div layout="row" layout-align="center center" layout-padding>
+                            <div class="md-whiteframe-z1" flex title="Number of listeners active">
+                                <md-icon md-svg-src="images/icons/ic_person_24px.svg"></md-icon>&nbsp;{{data[areaCode].participants}}
+                            </div>
+                        </div>
+                            
+                    </div>
+                    <div flex="20">
+                        <div layout="row" layout-align="center center" layout-padding>
+                            <div class="md-whiteframe-z1" flex title="Number of listeners per hall">
+                                <md-icon md-svg-src="images/icons/ic_account_box_24px.svg"></md-icon>&nbsp;{{participantsPerHall() | number:1}}
+                            </div>
+                        </div>
+                            
+                    </div>
+                    <div flex="20">
+                        <div layout="row" layout-align="center center" layout-padding>
+                            <div class="md-whiteframe-z1" flex title="Percentage of calls being SIP calls">
+                                <md-icon md-svg-src="images/icons/ic_dialer_sip_24px.svg"></md-icon>&nbsp;{{participantPercentageViaSip() | number:1}} %
+                            </div>
+                        </div>
+                            
+                    </div>
+                    <div flex="20">
+                        <div layout="row" layout-align="center center" layout-padding>
+                            <div class="md-whiteframe-z1" flex title="Number of open microphones">
+                                <md-icon md-svg-src="images/icons/ic_mic_24px.svg"></md-icon>&nbsp;{{data[areaCode].openMicrophones}}
+                            </div>
+                        </div>
+                            
+                    </div>
+                </div>
             </div>
-          </md-item-content>
-        </md-item>
-        <md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Listeners per Hall</h3>
-              <p>
-                {{participantsPerHall() | number}}
-              </p>
-            </div>
-          </md-item-content>
-        </md-item>
-        <md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Listeners via Computer</h3>
-              <p>
-                {{participantPercentageViaSip() | number:1}} %
-              </p>
-            </div>
-          </md-item-content>
-        </md-item>
-        <md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Listeners via Phone</h3>
-              <p>
-                {{participantPercentageViaPhone() | number:1}} %
-              </p>
-            </div>
-          </md-item-content>
-        </md-item>
-        <!--md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Comment Requests</h3>
-              <p>
-                {{data[areaCode].commentRequests }}
-              </p>
-            </div>
-          </md-item-content>
-        </md-item-->
-        <md-divider></md-divider>
-          <md-item-content>
-            <div class="md-tile-content">
-              <h3>Open Microphones</h3>
-              <p>
-                {{data[areaCode].openMicrophones}}
-              </p>
-            </div>
-          </md-item-content>
-        </md-item>
-      </md-list>
+        </div>
+    </md-card>
+    
 
 </section>

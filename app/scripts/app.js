@@ -21,7 +21,8 @@ var blacktigerApp = angular.module('blacktiger-admin', [
     'pascalprecht.translate',
     'blacktiger',
     'teljs',
-    'ngMaterial'
+    'ngMaterial',
+    'angular-svg-round-progress'
 ]);
 
 blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG) {
