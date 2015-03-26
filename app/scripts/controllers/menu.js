@@ -8,7 +8,7 @@
  * Controller of the blacktiger-app
  */
 angular.module('blacktiger-controllers')
-        .controller('MenuCtrl', function ($scope, LoginSvc, $rootScope, translateFilter, $window, $interval, SystemSvc) {
+        .controller('MenuCtrl', function ($scope, LoginSvc, $rootScope, translateFilter, $window) {
             $scope.system = null;
     
             $scope.logout = function() {

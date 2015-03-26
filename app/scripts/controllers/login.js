@@ -37,7 +37,7 @@ angular.module('blacktiger-controllers')
                         
                     }
                 });
-            }
+            };
 
 
             $timeout($scope.showLogin, 100);

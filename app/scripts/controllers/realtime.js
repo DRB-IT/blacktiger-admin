@@ -66,6 +66,17 @@ angular.module('blacktiger-controllers')
             };
 
             $scope.selectArea = function ($event) {
+                function DialogController(scope, $mdDialog, items) {
+                    scope.items = items;
+
+                    scope.select = function (item) {
+                        $mdDialog.hide(item);
+                    };
+
+                    scope.closeDialog = function () {
+                        $mdDialog.hide();
+                    };
+                }
                 $mdDialog.show({
                     targetEvent: $event,
                     templateUrl: 'views/dialog-select-area.html',
@@ -78,24 +89,14 @@ angular.module('blacktiger-controllers')
                         $scope.areaCode = result;
                     }
                 });
-                function DialogController(scope, $mdDialog, items) {
-                    scope.items = items;
-
-                    scope.select = function (item) {
-                        $mdDialog.hide(item);
-                    };
-
-                    scope.closeDialog = function () {
-                        $mdDialog.hide();
-                    };
-                }
+                
             };
 
             $scope.$watch('data[areaCode]', function (area) {
                 if (!area) {
                     $scope.areaCode = 'all';
                 }
-            })
+            });
 
             $scope.$on('$destroy', function () {
                 $scope.stopLoad();
