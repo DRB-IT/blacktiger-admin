@@ -17,26 +17,19 @@
     </head>
     <body ng-cloak layout="column">
     <md-toolbar ng-controller="MenuCtrl" class="md-hue-2">
-        <div style="max-width:864px; margin:auto; width:100%">
-        <h2 class="md-toolbar-tools">
-            <span>Telesal Admin</span>
-            <span flex></span>
-            <span>
-            <md-button ng-click="logout()" ng-if="currentUser">
-                Log out
-            </md-button>
+        <div style="max-width:864px; margin-left:auto; margin-right:auto; width:100%">
+            <h2 class="md-toolbar-tools">
+                <span>Telesal Admin</span>
+                <span flex></span>
+                <span>
+                    <md-button ng-click="logout()" ng-if="currentUser">
+                        Log out
+                    </md-button>
                 </span>
 
-        </h2>
+            </h2>
         </div>
-        <!--p ng-if="system !== null" layout="row" layout-align="start end" class="md-toolbar-tools" style="font-size:14px">
-            Net: {{system.load.net|number:1}} | 
-            Disk: {{system.load.disk|number:1}} | 
-            CPU: {{system.load.cpu|number:1}} | 
-            RAM: {{system.load.memory|number:1}} |  
-            Cores: {{system.cores|number:1}} |  
-            1m: {{system.averageCpuLoad.oneMinute|number:1}}
-        </p-->
+
     </md-toolbar>
     <section layout="row" flex>
         <md-content flex class="md-padding" ng-view>
