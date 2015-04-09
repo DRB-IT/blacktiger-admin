@@ -17,9 +17,10 @@ module.exports = function (grunt) {
 
   // Configurable paths for the application
   var appConfig = {
+    version: require('./bower.json').version,
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
-    buildFolder: 'dist/blacktiger-admin'
+    buildFolder: 'dist/blacktiger-admin-<%= yeoman.version %>' 
   };
 
   // Define the configuration for all the tasks
@@ -364,7 +365,7 @@ module.exports = function (grunt) {
     compress: {
         main: {
             options: {
-                archive: '<%= yeoman.dist %>/blacktiger-admin.zip',
+                archive: '<%= yeoman.dist %>/blacktiger-admin-<%= yeoman.version %>.zip',
                 mode: 'zip'
             },
             files: [
