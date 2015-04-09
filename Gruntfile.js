@@ -339,6 +339,8 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
+            'config.json',
+            'scripts/i18n/*.json',
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
@@ -437,7 +439,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    //'cdnify',
     'cssmin',
     'uglify',
     'filerev',
