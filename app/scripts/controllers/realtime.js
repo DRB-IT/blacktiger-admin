@@ -9,7 +9,14 @@
  */
 angular.module('blacktiger-controllers')
         .controller('RealtimeCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval) {
-            $scope.system = {};
+            $scope.system = {
+                load: {
+                    net: 0,
+                    disk: 0,
+                    memory: 0,
+                    cpu: 0
+                }
+            };
             $scope.data = {};
             $scope.areaCode = 'all';
 

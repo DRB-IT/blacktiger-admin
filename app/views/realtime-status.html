@@ -7,7 +7,7 @@
                         <div><strong>Avg. CPU</strong></div>
                         <div>1m: {{system.averageCpuLoad.oneMinute|number:1}}%</div>
                     </div>
-                    
+
                 </div>
                 <div flex layout="row" style="border-bottom:1px solid #eee;">
                     <div flex="25">
@@ -68,7 +68,7 @@
                         <div layout="row" layout-align="center">
                             <div class="circle-progress-wrapper">
                                 <div class="circle-progress-title">
-                                    {{system.load.cpu*100|number:0}}%
+                                    {{system.load.cpu * 100|number:0}}%
                                 </div>
                                 <div class="circle-progress-description">
                                     CPU
@@ -76,67 +76,67 @@
                                 <div
                                     round-progress
                                     max="100"
-                                    current="system.load.cpu"
+                                    current="system.load.cpu*100"
                                     radius="50"
                                     stroke="2"></div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 
             <div layout="row" style="padding:24px">
                 <div flex="10">
-                    <md-button class="md-fab" aria-label="Select area" ng-click="selectArea()">
-                        {{areaCode ? areaCode : 'all'}}
-                    </md-button>
+                    <md-select placeholder="Pick" ng-model="areaCode">
+                        <md-option ng-repeat="area in resolveActiveAreas()" ng-value="area" >{{area}}</md-option>
+                    </md-select>
                 </div>
                 <div flex layout="row" style="padding:">
                     <div flex="20">
                         <div layout="row" layout-align="center center" layout-padding>
                             <div class="md-whiteframe-z1" flex title="Number of halls active">
-                                <md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon>&nbsp;{{data[areaCode].halls}}
+                                <md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon>&nbsp;{{data[areaCode].halls}} halls
                             </div>
                         </div>
-                            
+
                     </div>
                     <div flex="20">
                         <div layout="row" layout-align="center center" layout-padding>
                             <div class="md-whiteframe-z1" flex title="Number of listeners active">
-                                <md-icon md-svg-src="images/icons/ic_person_24px.svg"></md-icon>&nbsp;{{data[areaCode].participants}}
+                                <md-icon md-svg-src="images/icons/ic_person_24px.svg"></md-icon>&nbsp;{{data[areaCode].participants}} listens
                             </div>
                         </div>
-                            
+
                     </div>
                     <div flex="20">
                         <div layout="row" layout-align="center center" layout-padding>
                             <div class="md-whiteframe-z1" flex title="Number of listeners per hall">
-                                <md-icon md-svg-src="images/icons/ic_account_box_24px.svg"></md-icon>&nbsp;{{participantsPerHall() | number:1}}
+                                <md-icon md-svg-src="images/icons/ic_account_box_24px.svg"></md-icon>&nbsp;{{participantsPerHall() | number:1}}/hall
                             </div>
                         </div>
-                            
+
                     </div>
                     <div flex="20">
                         <div layout="row" layout-align="center center" layout-padding>
                             <div class="md-whiteframe-z1" flex title="Percentage of calls being SIP calls">
-                                <md-icon md-svg-src="images/icons/ic_dialer_sip_24px.svg"></md-icon>&nbsp;{{participantPercentageViaSip() | number:1}} %
+                                <md-icon md-svg-src="images/icons/ic_dialer_sip_24px.svg"></md-icon>&nbsp;{{participantPercentageViaSip() | number:1}} % SIP
                             </div>
                         </div>
-                            
+
                     </div>
                     <div flex="20">
                         <div layout="row" layout-align="center center" layout-padding>
                             <div class="md-whiteframe-z1" flex title="Number of open microphones">
-                                <md-icon md-svg-src="images/icons/ic_mic_24px.svg"></md-icon>&nbsp;{{data[areaCode].openMicrophones}}
+                                <md-icon md-svg-src="images/icons/ic_mic_24px.svg"></md-icon>&nbsp;{{data[areaCode].openMicrophones}} open
                             </div>
                         </div>
-                            
+
                     </div>
                 </div>
             </div>
         </div>
     </md-card>
-    
+
 
 </section>
