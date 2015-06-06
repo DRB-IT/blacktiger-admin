@@ -25,12 +25,24 @@ var blacktigerApp = angular.module('blacktiger-admin', [
     'angular-svg-round-progress'
 ]);
 
-blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG) {
-    
+blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG, $mdThemingProvider) {
+
     if (CONFIG.serviceUrl) {
         blacktigerProvider.setServiceUrl(CONFIG.serviceUrl);
     }
-    
+
+    $mdThemingProvider.theme('menu')
+        .backgroundPalette('blue-grey', {
+          'default': 'A200',
+          'hue-1': '50',
+          'hue-2': '600',
+          'hue-3': 'A100'
+      });
+
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue-grey')
+        .accentPalette('orange');
+
     // SECURITY (forward to login if not authorized)
     $httpProvider.interceptors.push(function ($location) {
         return {
@@ -46,18 +58,18 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider
     $routeProvider.
             when('/login', {
                 controller: 'LoginCtrl',
-                templateUrl: 'views/blank.html'
+                templateUrl: 'views/login.html'
             }).
-            when('/', {
-                controller: 'RealtimeCtrl',
-                templateUrl: 'views/realtime-status.html'
+            when('/dashboard', {
+                controller: 'DashboardCtrl',
+                templateUrl: 'views/dashboard.html'
             }).
             when('/history', {
                 controller: 'HistoryCtrl',
                 templateUrl: 'views/system-history.html'
             }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
 
 
@@ -92,27 +104,26 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider
     });
 });
 
-blacktigerApp.run(function ($location, LoginSvc, $rootScope/*, PushEventSvc, AutoCommentRequestCancelSvc*/) {
+blacktigerApp.run(function ($location, LoginSvc, $rootScope, $mdSidenav) {
     // The context object is a holder of information for the current session
     $rootScope.context = {};
 
     LoginSvc.authenticate().then(angular.noop, function () {
-        $location.path('login');
+        $location.path('/login');
     });
 
     $rootScope.$on('afterLogout', function () {
         $rootScope.rooms = null;
-        $location.path('login');
+        $location.path('/login');
     });
 
     $rootScope.$on('login', function () {
-        $location.path('');
+        $location.path('/dashboard');
     });
 
-
-    //$rootScope.$on('MeetingSvc.Initialized', $rootScope.updateCurrentRoom);
-
-    //AutoCommentRequestCancelSvc.start();
+    $rootScope.toggleMenu = function() {
+        $mdSidenav('menu').toggle();
+    }
 });
 
 /** BOOTSTRAP **/

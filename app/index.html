@@ -14,29 +14,45 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body ng-cloak layout="column">
-    <md-toolbar ng-controller="MenuCtrl" class="md-hue-2">
-        <div style="max-width:864px; margin-left:auto; margin-right:auto; width:100%">
-            <h2 class="md-toolbar-tools">
-                <span>Telesal Admin</span>
-                <span flex></span>
-                <span>
-                    <md-button ng-click="logout()" ng-if="currentUser">
-                        Log out
-                    </md-button>
-                </span>
+    <body ng-cloak layout="row">
 
-            </h2>
+
+        <md-sidenav md-theme="menu" class="md-sidenav-left md-whiteframe-z3 md-primary md-hue-1" md-component-id="menu" md-is-locked-open="$mdMedia('gt-md') && currentUser">
+            <md-content flex class="md-hue-1">
+                <div layout="column" layout-align="start start" layout-padding>
+                    <md-list>
+                        <md-list-item>
+                            <i class="md-dark material-icons md-36 orange600">phone</i>
+                            <h3 class="md-headline">Telesal</h3>
+                        </md-list-item>
+                    </md-list>
+
+                    <h6 class="subhead" style="margin-bottom:0px;padding-left:16px;">Generelt</h6>
+                    <md-list>
+
+                        <md-list-item>
+                            <i class="material-icons md-20">assessment</i>
+                            <p class="md-body-1">Dashboard</p>
+                        </md-list-item>
+                        <md-list-item>
+                            <i class="material-icons md-20">supervisor_account</i>
+                            <p class="md-body-1">Users</p>
+                        </md-list-item>
+
+                    </md-list>
+                </div>
+
+            </md-content>
+        </md-sidenav>
+        <div layout="column" layout-fill ng-view>
+        <!--md-content flex ng-view md-scroll-y layout-fill>
+
+        </md-content-->
         </div>
+    </div>
 
-    </md-toolbar>
-    <section layout="row" flex>
-        <md-content flex class="md-padding" ng-view>
-
-        </md-content>
-
-    </section>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -68,7 +84,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/menu.js"></script>
-    <script src="scripts/controllers/realtime.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
     <script src="scripts/directives/capitalize.js"></script>
     <script src="scripts/directives/numbericon.js"></script>
     <script src="scripts/directives/duration.js"></script>

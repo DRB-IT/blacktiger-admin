@@ -8,7 +8,7 @@
  * Used by Admin
  */
 angular.module('blacktiger-controllers')
-        .controller('RealtimeCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval) {
+        .controller('DashboardCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval) {
             $scope.system = {
                 load: {
                     net: 0,
@@ -24,7 +24,7 @@ angular.module('blacktiger-controllers')
                 SummarySvc.getSummary().then(function (data) {
                     $scope.data = data;
                 });
-                
+
                 SystemSvc.getSystemInfo().then(function (data) {
                     //SystemSvc does not reject propery on error
                     //See https://github.com/DRB-IT/blacktigerjs/issues/14
@@ -72,31 +72,9 @@ angular.module('blacktiger-controllers')
                 return areas;
             };
 
-            $scope.selectArea = function ($event) {
-                function DialogController(scope, $mdDialog, items) {
-                    scope.items = items;
+            $scope.selectArea = function (area) {
+                $scope.areaCode = area;
 
-                    scope.select = function (item) {
-                        $mdDialog.hide(item);
-                    };
-
-                    scope.closeDialog = function () {
-                        $mdDialog.hide();
-                    };
-                }
-                $mdDialog.show({
-                    targetEvent: $event,
-                    templateUrl: 'views/dialog-select-area.html',
-                    locals: {
-                        items: $scope.resolveActiveAreas()
-                    },
-                    controller: DialogController
-                }).then(function (result) {
-                    if (result) {
-                        $scope.areaCode = result;
-                    }
-                });
-                
             };
 
             $scope.$watch('data[areaCode]', function (area) {

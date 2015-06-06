@@ -1,31 +1,38 @@
-
-<md-dialog>
-    <md-toolbar class="md-warn">
-        <h2 class="md-toolbar-tools">
-            <span>Login</span>
-        </h2>
-    </md-toolbar>
-    <form id="loginform">
-        <md-content layout="row">
-            <div layout="column" layout-padding >
-
-                <md-input-container>
-                    <label translate="LOGIN.USERNAME"></label>
-                    <input ng-model="username">
-                </md-input-container>
-                <md-input-container>
-                    <label translate="LOGIN.PASSWORD"></label>
-                    <input ng-model="password" type="password">
-                </md-input-container>
-
-                <md-checkbox ng-model="rememberMe" aria-label="{{'LOGIN.REMEMBER_ME'| translate}}" >{{'LOGIN.REMEMBER_ME'| translate}}</md-checkbox>
-
-            </div>
-        </md-content>
-        <div class="md-actions" layout="row">
-            <md-button type="submit" ng-click="login()" class="md-raised md-primary" translate="LOGIN.LOG_IN" aria-label="Log in"></md-button>
-            <!--md-button href="#!/request_password" class="md-raised" translate="LOGIN.FORGOT_PASSWORD"></md-button-->
-
+<md-content id="login" layout="row" flex layout-fill layout-align="center center">
+    <div flex>
+    </div>
+    <div flex="50">
+        <div layout="column" layout-padding layout-align="center center">
+            <span>
+                <h1 class="md-display-2">Telesal Admin</h1>
+            </span>
         </div>
-    </form>
-</md-dialog>
+        <md-whiteframe class="md-whiteframe-z1" class="md-default-theme" layout="" layout-align="center center">
+            <form id="loginform">
+                <md-content layout="row">
+                    <div layout="column" layout-padding >
+
+                        <md-input-container>
+                            <label translate="LOGIN.USERNAME"></label>
+                            <input ng-model="username">
+                        </md-input-container>
+                        <md-input-container>
+                            <label translate="LOGIN.PASSWORD"></label>
+                            <input ng-model="password" type="password">
+                        </md-input-container>
+
+                        <md-checkbox ng-model="rememberMe" aria-label="{{'LOGIN.REMEMBER_ME'| translate}}" >{{'LOGIN.REMEMBER_ME'| translate}}</md-checkbox>
+
+                    </div>
+                </md-content>
+                <div class="md-actions" layout="row">
+                    <md-button type="submit" ng-click="login()" class="md-raised md-primary" translate="LOGIN.LOG_IN" aria-label="Log in"></md-button>
+                        <!--md-button href="#!/request_password" class="md-raised" translate="LOGIN.FORGOT_PASSWORD"></md-button-->
+
+                </div>
+            </form>
+        </md-whiteframe>
+    </div>
+    <div flex>
+    </div>
+</md-content>

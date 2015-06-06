@@ -1,0 +1,99 @@
+<div>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleMenu()">
+          <md-icon md-svg-src="images/icons/ic_menu_24px.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>Dashboard</span>
+        </h2>
+        <span flex></span>
+        <md-button ng-repeat="area in resolveActiveAreas() track by $index" ng-click="selectArea(area)" ng-class="{'md-raised':area===areaCode}">{{area}}</md-button>
+
+      </div>
+    </md-toolbar>
+    <section>
+
+        <div layout="row" layout-sm="column" layout-margin layout-fill layout-padding>
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <span class="md-title">CPU: {{system.load.cpu*100|number:0}}%</span>
+                <md-progress-linear ng-class="{'md-accent':system.load.cpu*100>80}" md-mode="determinate" value="{{system.load.cpu*100|number:0}}"></md-progress-linear>
+            </md-whiteframe>
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <span class="md-title">Memory: {{system.load.memory|number:0}}%</span>
+                <md-progress-linear ng-class="{'md-accent':system.load.memory>80}" md-mode="determinate" value="{{system.load.memory|number:0}}"></md-progress-linear>
+            </md-whiteframe>
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <span class="md-title">Disk: {{system.load.disk|number:0}}%</span>
+                <md-progress-linear ng-class="{'md-accent':system.load.disk>80}" md-mode="determinate" value="{{system.load.disk|number:0}}"></md-progress-linear>
+            </md-whiteframe>
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <span class="md-title">Net: {{system.load.net|number:0}}%</span>
+                <md-progress-linear ng-class="{'md-accent':system.load.net>80}" md-mode="determinate" value="{{system.load.net|number:0}}"></md-progress-linear>
+            </md-whiteframe>
+        </div>
+
+        <div layout="row" layout-sm="column" layout-margin layout-fill layout-padding>
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <div layout="row">
+                    <md-button class="md-fab md-mini" aria-label="Active Halls" style="min-width:40px">
+                        <md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon>
+                    </md-button>
+                    <div layout="column" layout-align="center start">
+                        <div class="md-title md-primary md-hue-1">{{data[areaCode].halls}}</div>
+                        <div class="md-caption" style="overflow:hidden;text-overflow:ellipsis;width:100%">Halls</div>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <div layout="row">
+                    <md-button class="md-fab md-mini md-primary" aria-label="Active Listeners" style="min-width:40px">
+                        <md-icon md-svg-src="images/icons/ic_person_24px.svg"></md-icon>
+                    </md-button>
+                    <div layout="column" layout-align="center start">
+                        <div class="md-title md-primary">{{data[areaCode].participants}}</div>
+                        <div class="md-caption" style="overflow:hidden;text-overflow:ellipsis;width:100%">Listeners</div>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <div layout="row">
+                    <md-button class="md-fab md-mini md-primary" aria-label="Listeners per Hall" style="min-width:40px">
+                        <md-icon md-svg-src="images/icons/ic_account_box_24px.svg"></md-icon>
+                    </md-button>
+                    <div layout="column" layout-align="center start">
+                        <div class="md-title md-primary md-hue-1">{{participantsPerHall()}}</div>
+                        <div class="md-caption" style="overflow:hidden;text-overflow:ellipsis;width:100%">Listeners&nbsp;per&nbsp;Hall</div>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <div layout="row">
+                    <md-button class="md-fab md-mini md-primary" aria-label="Sip Percentage" style="min-width:40px">
+                        <md-icon md-svg-src="images/icons/ic_dialer_sip_24px.svg"></md-icon>
+                    </md-button>
+                    <div layout="column" layout-align="center start">
+                        <div class="md-title md-primary md-hue-1">{{participantPercentageViaSip()}}%</div>
+                        <div class="md-caption" style="overflow:hidden;text-overflow:ellipsis;width:100%">Sip&nbsp;Percentage</div>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" flex>
+                <div layout="row">
+                    <md-button class="md-fab md-mini md-primary" aria-label="Open Microphones" style="min-width:40px">
+                        <md-icon md-svg-src="images/icons/ic_mic_24px.svg"></md-icon>
+                    </md-button>
+                    <div layout="column" layout-align="center start">
+                        <div class="md-title md-primary md-hue-1">{{data[areaCode].openMicrophones}}</div>
+                        <div class="md-caption" style="overflow:hidden;text-overflow:ellipsis;width:100%">Open&nbsp;Microphones</div>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+        </div>
+</section>
+</div>
