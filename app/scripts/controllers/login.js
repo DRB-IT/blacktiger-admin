@@ -8,7 +8,7 @@
  * Controller of the blacktiger-admin interface
  */
 angular.module('blacktiger-controllers')
-        .controller('LoginCtrl', function ($scope, LoginSvc, $mdToast, translateFilter, $mdDialog, $timeout) {
+        .controller('LoginCtrl', function ($scope, LoginSvc, $mdToast, translateFilter) {
             $scope.username = '';
             $scope.password = '';
             $scope.rememberMe = false;

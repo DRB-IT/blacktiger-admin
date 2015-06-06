@@ -123,7 +123,7 @@ blacktigerApp.run(function ($location, LoginSvc, $rootScope, $mdSidenav) {
 
     $rootScope.toggleMenu = function() {
         $mdSidenav('menu').toggle();
-    }
+    };
 });
 
 /** BOOTSTRAP **/
