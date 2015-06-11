@@ -37,7 +37,8 @@
             <md-whiteframe class="md-whiteframe-z1" flex>
                 <div layout="row">
                     <md-button class="md-fab md-mini" aria-label="Active Halls" style="min-width:40px">
-                        <md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon>
+                        <md-icon>home</md-icon>
+                        <!--md-icon md-svg-src="images/icons/ic_home_24px.svg"></md-icon-->
                     </md-button>
                     <div layout="column" layout-align="center start">
                         <div class="md-title md-primary md-hue-1">{{data[areaCode].halls}}</div>
@@ -49,7 +50,7 @@
             <md-whiteframe class="md-whiteframe-z1" flex>
                 <div layout="row">
                     <md-button class="md-fab md-mini md-primary" aria-label="Active Listeners" style="min-width:40px">
-                        <md-icon md-svg-src="images/icons/ic_person_24px.svg"></md-icon>
+                        <md-icon>person</md-icon>
                     </md-button>
                     <div layout="column" layout-align="center start">
                         <div class="md-title md-primary">{{data[areaCode].participants}}</div>
@@ -61,7 +62,7 @@
             <md-whiteframe class="md-whiteframe-z1" flex>
                 <div layout="row">
                     <md-button class="md-fab md-mini md-primary" aria-label="Listeners per Hall" style="min-width:40px">
-                        <md-icon md-svg-src="images/icons/ic_account_box_24px.svg"></md-icon>
+                        <md-icon>account_box</md-icon>
                     </md-button>
                     <div layout="column" layout-align="center start">
                         <div class="md-title md-primary md-hue-1">{{participantsPerHall()}}</div>
@@ -73,7 +74,7 @@
             <md-whiteframe class="md-whiteframe-z1" flex>
                 <div layout="row">
                     <md-button class="md-fab md-mini md-primary" aria-label="Sip Percentage" style="min-width:40px">
-                        <md-icon md-svg-src="images/icons/ic_dialer_sip_24px.svg"></md-icon>
+                        <md-icon>dialer_sip</md-icon>
                     </md-button>
                     <div layout="column" layout-align="center start">
                         <div class="md-title md-primary md-hue-1">{{participantPercentageViaSip()}}%</div>
@@ -85,7 +86,7 @@
             <md-whiteframe class="md-whiteframe-z1" flex>
                 <div layout="row">
                     <md-button class="md-fab md-mini md-primary" aria-label="Open Microphones" style="min-width:40px">
-                        <md-icon md-svg-src="images/icons/ic_mic_24px.svg"></md-icon>
+                        <md-icon>mic</md-icon>
                     </md-button>
                     <div layout="column" layout-align="center start">
                         <div class="md-title md-primary md-hue-1">{{data[areaCode].openMicrophones}}</div>
