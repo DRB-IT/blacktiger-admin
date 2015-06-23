@@ -8,7 +8,7 @@
  * Controller of the blacktiger-admin interface
  */
 angular.module('blacktiger-controllers')
-        .controller('LoginCtrl', function ($scope, LoginSvc, $mdToast, translateFilter) {
+        .controller('LoginCtrl', function ($scope, LoginSvc, $mdToast) {
             $scope.username = '';
             $scope.password = '';
             $scope.rememberMe = false;
@@ -19,10 +19,10 @@ angular.module('blacktiger-controllers')
                     $scope.status = 'success';
                 }, function (rejection) {
                     if (rejection.status === 0) {
-                        $mdToast.show($mdToast.simple().position('top right').content(translateFilter('GENERAL.UNABLE_TO_CONNECT')));
+                        $mdToast.show($mdToast.simple().position('top right').content('Unable to connect to server.'));
                         $scope.status = 'no-connect';
                     } else {
-                        $mdToast.show($mdToast.simple().position('top right').content(translateFilter('LOGIN.INVALID_CREDENTIALS')));
+                        $mdToast.show($mdToast.simple().position('top right').content('Bad credentials'));
                         $scope.status = 'invalid';
                     }
                 });

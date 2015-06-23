@@ -13,20 +13,20 @@
                     <div layout="column" layout-padding >
 
                         <md-input-container>
-                            <label translate="LOGIN.USERNAME"></label>
+                            <label>Username</label>
                             <input ng-model="username">
                         </md-input-container>
                         <md-input-container>
-                            <label translate="LOGIN.PASSWORD"></label>
+                            <label>Password</label>
                             <input ng-model="password" type="password">
                         </md-input-container>
 
-                        <md-checkbox ng-model="rememberMe" aria-label="{{'LOGIN.REMEMBER_ME'| translate}}" >{{'LOGIN.REMEMBER_ME'| translate}}</md-checkbox>
+                        <md-checkbox ng-model="rememberMe" aria-label="Remember me" >Remember me</md-checkbox>
 
                     </div>
                 </md-content>
                 <div class="md-actions" layout="row">
-                    <md-button type="submit" ng-click="login()" class="md-raised md-primary" translate="LOGIN.LOG_IN" aria-label="Log in"></md-button>
+                    <md-button type="submit" ng-click="login()" class="md-raised md-primary" aria-label="Log in">Sign in</md-button>
                         <!--md-button href="#!/request_password" class="md-raised" translate="LOGIN.FORGOT_PASSWORD"></md-button-->
 
                 </div>

@@ -18,14 +18,13 @@ var blacktigerApp = angular.module('blacktiger-admin', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'pascalprecht.translate',
     'blacktiger',
     'teljs',
     'ngMaterial',
-    'angular-svg-round-progress'
+    'mdDataTable'
 ]);
 
-blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider, blacktigerProvider, CONFIG, $mdThemingProvider) {
+blacktigerApp.config(function ($routeProvider, $httpProvider, blacktigerProvider, CONFIG, $mdThemingProvider) {
 
     if (CONFIG.serviceUrl) {
         blacktigerProvider.setServiceUrl(CONFIG.serviceUrl);
@@ -72,36 +71,6 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, $translateProvider
                 redirectTo: '/login'
             });
 
-
-    $translateProvider.useStaticFilesLoader({
-        prefix: 'scripts/i18n/blacktiger-locale-',
-        suffix: '.json'
-    });
-
-    $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
-    $translateProvider.registerAvailableLanguageKeys(['en', 'da', 'es', 'no', 'sv', 'is', 'fo', 'kl'], {
-        'no*': 'no',
-        'nb*': 'no',
-        'nn*': 'no',
-        'da*': 'dk',
-        'es*': 'es',
-        'sv*': 'sv',
-        'is*': 'is',
-        'fo*': 'fo',
-        'kl*': 'kl',
-        '*': 'en'
-    });
-    $translateProvider.determinePreferredLanguage(function () {
-        var language;
-        if (navigator && navigator.languages) {
-            language = navigator.languages[0];
-        } else {
-            language = window.navigator.userLanguage || window.navigator.language;
-            language = language.split('-');
-            language = language[0];
-        }
-        return language;
-    });
 });
 
 blacktigerApp.run(function ($location, LoginSvc, $rootScope, $mdSidenav) {
@@ -130,16 +99,7 @@ blacktigerApp.run(function ($location, LoginSvc, $rootScope, $mdSidenav) {
 angular.element(document).ready(function () {
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
-    var languageNames = {
-        'da': 'Dansk',
-        'en': 'English',
-        'fo': 'Føroyskt',
-        'kl': 'Kalaallisut',
-        'sv': 'Svenska',
-        'no': 'Norsk',
-        'is': 'Íslenska',
-        'es': 'Español'
-    };
+
     var defaultConfig = {
         serviceUrl: 'http://192.168.87.104:8084/blacktiger',
         RootHelp: 'http://help.txxxxx.org/{%1}',
@@ -150,7 +110,6 @@ angular.element(document).ready(function () {
 
     var initApp = function (config) {
         blacktigerApp.constant('CONFIG', config);
-        blacktigerApp.constant('languages', languageNames);
         angular.bootstrap(document, ['blacktiger-admin']);
     };
     $http.get('config.json').then(

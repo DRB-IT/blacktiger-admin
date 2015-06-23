@@ -10,16 +10,13 @@
     "angular-sanitize": "~1.4.x",
     "angular-touch": "~1.4.x",
     "blacktigerjs": "~0.2.x",
-    "angular-translate": "~2.4.x",
-    "angular-translate-loader-static-files": "~2.4.x",
-    "angular-translate-interpolation-messageformat": "~2.4.x",
     "teljs": "~1.0.x",
-    "angular-material": "~0.9.x",
-    "angular-svg-round-progressbar": "~0.2.5"
+    "angular-material": "~0.10.x",
+    "md-data-table": "*"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.0",
-    "angular-scenario": "~1.4.0"
+    "angular-mocks": "~1.4.x",
+    "angular-scenario": "~1.4.x"
   },
   "appPath": "app"
 }

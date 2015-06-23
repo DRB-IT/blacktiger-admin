@@ -8,7 +8,7 @@
  * Used by Admin
  */
 angular.module('blacktiger-controllers')
-        .controller('DashboardCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval) {
+        .controller('DashboardCtrl', function ($scope, $mdDialog, SummarySvc, SystemSvc, $interval, RoomSvc) {
             $scope.system = {
                 load: {
                     net: 0,
@@ -19,9 +19,17 @@ angular.module('blacktiger-controllers')
             };
             $scope.data = {};
             $scope.areaCode = 'all';
+            $scope.halls = [];
+
+            $scope.loadHalls = function() {
+                $scope.halls = RoomSvc.query();
+            };
 
             $scope.loadData = function () {
                 SummarySvc.getSummary().then(function (data) {
+                    if(!angular.equals(data, $scope.data)) {
+                        $scope.loadHalls();
+                    }
                     $scope.data = data;
                 });
 
@@ -77,6 +85,20 @@ angular.module('blacktiger-controllers')
 
             };
 
+            $scope.getHallsFromArea = function(area) {
+                if(area === 'all') {
+                    return this.halls;
+                }
+
+                var result = [];
+                for(var i=0;i<this.halls.length;i++) {
+                    if(this.halls[i].id.substring(0,3) === area) {
+                        result.push(this.halls[i]);
+                    }
+                }
+                return result;
+            };
+
             $scope.$watch('data[areaCode]', function (area) {
                 if (!area) {
                     $scope.areaCode = 'all';
@@ -84,7 +106,9 @@ angular.module('blacktiger-controllers')
             });
 
             $scope.$on('$destroy', function () {
-                $scope.stopLoad();
+                if(angular.isFunction($scope.stopLoad)) {
+                    $scope.stopLoad();
+                }
             });
 
             $scope.stopLoad = $interval($scope.loadData, 5000);

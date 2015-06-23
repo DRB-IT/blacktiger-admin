@@ -1,3 +1,2 @@
 
 angular.module('blacktiger-filters', []);
-
