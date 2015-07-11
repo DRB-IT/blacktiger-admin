@@ -8,7 +8,7 @@
  * Controller of the blacktiger-admin interface
  */
 angular.module('blacktiger-controllers')
-        .controller('HallsCtrl', function ($scope, RoomSvc) {
+        .controller('HallsCtrl', function ($scope, RoomSvc, $location) {
             $scope.halls = [];
             $scope.data = {search: ''};
             $scope.mode = '';
@@ -21,6 +21,33 @@ angular.module('blacktiger-controllers')
             $scope.loadHalls = function() {
                 $scope.halls = RoomSvc.query(null, $scope.data.search);
             };
+
+            $scope.editHall = function(hall) {
+                $location.path('/halls/' + hall.id)
+            }
+
+            $scope.getCsvHeader = function() {
+                return ['ID', 'NAME', 'PHONENUMBER', 'POSTALCODE', 'CITY', 'HALLNUMBER', 'CONTACTNAME', 'CONTACTPHONENUMBER', 'CONTACTEMAIL', 'CONTACTCOMMENT'];
+            };
+
+            $scope.getCsvData = function() {
+                var result = [], i;
+                angular.forEach($scope.halls, function(hall) {
+                    result.push({
+                        id: hall.id,
+                        name:hall.name,
+                        phoneNumber:hall.phoneNumber,
+                        postalCode:hall.postalCode,
+                        city:hall.city,
+                        hallNumber:hall.hallNumber,
+                        contactName:hall.contact.name,
+                        contactPhoneNumber:hall.contact.phoneNumber,
+                        contactEmail:hall.contact.email,
+                        contactComment:hall.contact.comment
+                    });
+                });
+                return result;
+            }
 
             $scope.$watch(function() {
                 return $scope.data.search;

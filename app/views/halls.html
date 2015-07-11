@@ -11,6 +11,9 @@
         <md-button class="md-icon-button" aria-label="search" ng-click="changeMode('search')">
             <md-icon>search</md-icon>
         </md-button>
+        <md-button class="md-icon-button" aria-label="search" ng-csv="getCsvData()" csv-header="getCsvHeader()" filename="halls.csv">
+            <md-icon>cloud_download</md-icon>
+        </md-button>
       </div>
     </md-toolbar>
     <md-toolbar ng-if="mode==='search'" class="md-hue-1 md-whiteframe-z1" style="background:white">
@@ -26,10 +29,12 @@
             <md-button class="md-icon-button" aria-label="Clear" ng-if="data.search!==''" ng-click="data.search=''">
                 <md-icon>clear</md-icon>
             </md-button>
+            <md-button class="md-icon-button" aria-label="search" ng-csv="getCsvData()" csv-header="getCsvHeader()" filename="halls.csv">
+                <md-icon>cloud_download</md-icon>
+            </md-button>
         </div>
     </md-toolbar>
     <md-content layout-margin layout-fill>
-        mode:{{mode}}/search:{{data.search}}
         <md-data-table>
 
             <md-data-table-header-row>
@@ -40,7 +45,7 @@
 
             </md-data-table-header-row>
 
-            <md-data-table-row ng-repeat="hall in halls | orderBy:city">
+            <md-data-table-row ng-repeat="hall in halls | orderBy:city" ng-click="editHall(hall)">
                 <md-data-table-cell>{{::hall.countryCallingCode}}</md-data-table-cell>
                 <md-data-table-cell>{{::hall.name}}</md-data-table-cell>
                 <md-data-table-cell>{{::hall.phoneNumber}}</md-data-table-cell>

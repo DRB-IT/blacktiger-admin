@@ -21,7 +21,8 @@ var blacktigerApp = angular.module('blacktiger-admin', [
     'blacktiger',
     'teljs',
     'ngMaterial',
-    'mdDataTable'
+    'mdDataTable',
+    'ngCsv'
 ]);
 
 blacktigerApp.config(function ($routeProvider, $httpProvider, blacktigerProvider, CONFIG, $mdThemingProvider) {
@@ -70,6 +71,10 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, blacktigerProvider
             when('/halls', {
                 controller: 'HallsCtrl',
                 templateUrl: 'views/halls.html'
+            }).
+            when('/halls/:id', {
+                controller: 'HallEditCtrl',
+                templateUrl: 'views/hall-edit.html'
             }).
             otherwise({
                 redirectTo: '/login'

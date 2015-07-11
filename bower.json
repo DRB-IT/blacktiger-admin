@@ -12,7 +12,8 @@
     "blacktigerjs": "~0.2.x",
     "teljs": "~1.2.x",
     "angular-material": "~0.10.x",
-    "md-data-table": "*"
+    "md-data-table": "*",
+    "ng-csv": "~0.3.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.x",
