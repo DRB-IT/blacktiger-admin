@@ -1,0 +1,52 @@
+<div>
+    <md-toolbar ng-if="mode!=='search'">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Menu" hide-gt-md ng-click="toggleMenu()">
+          <md-icon md-svg-src="images/icons/ic_menu_24px.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>Halls</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="search" ng-click="changeMode('search')">
+            <md-icon>search</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-toolbar ng-if="mode==='search'" class="md-hue-1 md-whiteframe-z1" style="background:white">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Menu" ng-click="changeMode('')">
+                <md-icon>chevron_left</md-icon>
+            </md-button>
+            <md-input-container md-no-float="true" flex>
+                <label for="input_001">&nbsp;</label>
+                <input type="text" ng-model="data.search" id="search" ng-model-options="{ debounce: 500 }">
+                <div class="md-placeholder">Search halls</div>
+            </md-input-container>
+            <md-button class="md-icon-button" aria-label="Clear" ng-if="data.search!==''" ng-click="data.search=''">
+                <md-icon>clear</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout-margin layout-fill>
+        mode:{{mode}}/search:{{data.search}}
+        <md-data-table>
+
+            <md-data-table-header-row>
+                <md-data-table-column>Area</md-data-table-column>
+                <md-data-table-column>Hall</md-data-table-column>
+                <md-data-table-column>Phone</md-data-table-column>
+                <md-data-table-column>Contact</md-data-table-column>
+
+            </md-data-table-header-row>
+
+            <md-data-table-row ng-repeat="hall in halls | orderBy:city">
+                <md-data-table-cell>{{::hall.countryCallingCode}}</md-data-table-cell>
+                <md-data-table-cell>{{::hall.name}}</md-data-table-cell>
+                <md-data-table-cell>{{::hall.phoneNumber}}</md-data-table-cell>
+                <md-data-table-cell>{{::hall.contact.name}}</md-data-table-cell>
+            </md-data-table-row>
+
+        </md-data-table>
+</md-content>
+</div>

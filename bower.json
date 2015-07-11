@@ -10,7 +10,7 @@
     "angular-sanitize": "~1.4.x",
     "angular-touch": "~1.4.x",
     "blacktigerjs": "~0.2.x",
-    "teljs": "~1.0.x",
+    "teljs": "~1.2.x",
     "angular-material": "~0.10.x",
     "md-data-table": "*"
   },
@@ -18,5 +18,9 @@
     "angular-mocks": "~1.4.x",
     "angular-scenario": "~1.4.x"
   },
-  "appPath": "app"
+  "appPath": "app",
+  "resolutions": {
+    "angular": "1.4.2",
+    "angular-material": "~0.10.x"
+  }
 }

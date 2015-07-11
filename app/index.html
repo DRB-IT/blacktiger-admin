@@ -21,7 +21,7 @@
 
 
         <md-sidenav md-theme="menu" class="md-sidenav-left md-whiteframe-z3 md-primary md-hue-1" md-component-id="menu" md-is-locked-open="$mdMedia('gt-md') && currentUser">
-            <md-content flex class="md-hue-1">
+            <md-content flex class="md-hue-1" ng-controller="MenuCtrl">
                 <div layout="column" layout-align="start start" layout-padding>
                     <md-list>
                         <md-list-item>
@@ -33,14 +33,14 @@
                     <h6 class="subhead" style="margin-bottom:0px;padding-left:16px;">Generelt</h6>
                     <md-list>
 
-                        <md-list-item>
+                        <md-list-item class="active">
                             <i class="material-icons md-20">assessment</i>
-                            <p class="md-body-1">Dashboard</p>
+                            <p class="md-body-1" ng-click="goto('/dashboard')">Dashboard</p>
                         </md-list-item>
-                        <!--md-list-item>
-                            <i class="material-icons md-20">supervisor_account</i>
-                            <p class="md-body-1">Users</p>
-                        </md-list-item-->
+                        <md-list-item>
+                            <i class="material-icons md-20">home</i>
+                            <p class="md-body-1" ng-click="goto('/halls')">Halls</p>
+                        </md-list-item>
 
                     </md-list>
                 </div>
@@ -68,7 +68,8 @@
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
     <script src="bower_components/blacktigerjs/dist/blacktiger.js"></script>
-    <script src="bower_components/teljs/src/tel.js"></script>
+    <script src="bower_components/teljs/dist/tel.js"></script>
+    <script src="bower_components/teljs/dist/metadatalite.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
@@ -87,6 +88,7 @@
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/menu.js"></script>
     <script src="scripts/controllers/dashboard.js"></script>
+    <script src="scripts/controllers/halls.js"></script>
     <script src="scripts/directives/capitalize.js"></script>
     <script src="scripts/directives/numbericon.js"></script>
     <script src="scripts/directives/duration.js"></script>

@@ -67,6 +67,10 @@ blacktigerApp.config(function ($routeProvider, $httpProvider, blacktigerProvider
                 controller: 'HistoryCtrl',
                 templateUrl: 'views/system-history.html'
             }).
+            when('/halls', {
+                controller: 'HallsCtrl',
+                templateUrl: 'views/halls.html'
+            }).
             otherwise({
                 redirectTo: '/login'
             });

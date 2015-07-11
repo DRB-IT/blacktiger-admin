@@ -27,7 +27,7 @@ angular.module('blacktiger-controllers')
 
             $scope.loadData = function () {
                 SummarySvc.getSummary().then(function (data) {
-                    if(!angular.equals(data, $scope.data)) {
+                        if(!angular.equals(data, $scope.data)) {
                         $scope.loadHalls();
                     }
                     $scope.data = data;
