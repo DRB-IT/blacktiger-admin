@@ -1,0 +1,74 @@
+<md-toolbar>
+      <div class="md-toolbar-tools">
+          <sidenav-toggle hide-gt-sm></sidenav-toggle>
+      <h2>
+          <span>Edit Hall</span>
+        </h2>
+        <span flex></span>
+        <md-button ng-click="save()" class="md-icon-button" aria-label="Save" ng-disabled="!isChanged()">
+          <md-icon>done</md-icon>
+        </md-button>
+      </div>
+</md-toolbar>
+
+  <md-content layout-padding style="max-width:800px;margin-left:auto;margin-right:auto;" layout-fill>
+      <form name="ctrl.userForm" ng-submit="save()">
+      <div layout layout-sm="column">
+        <md-input-container flex="75">
+            <label>Navn</label>
+            <input ng-model="hall.name" disabled>
+     	 </md-input-container>
+        <md-input-container flex="25">
+            <label>Hall number</label>
+            <input type="text" ng-model="hall.hallNumber" disabled>
+     	 </md-input-container>
+      </div>
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Telefon</label>
+          <input name="phone" ng-model="hall.phoneNumber" disabled>
+        </md-input-container>
+      </div>
+
+      <div layout layout-sm="column">
+       <md-input-container flex>
+          <label>Postal Code</label>
+          <input ng-model="hall.postalCode" disabled>
+        </md-input-container>
+         <md-input-container flex>
+          <label>City</label>
+          <input ng-model="hall.city" disabled>
+        </md-input-container>
+      </div>
+
+      <md-input-container flex>
+         <label>Contact Name</label>
+         <input ng-model="hall.contact.name" disabled>
+       </md-input-container>
+
+      <div layout layout-sm="column">
+
+         <md-input-container flex>
+          <label>Contact Phone</label>
+          <input ng-model="hall.contact.phoneNumber" disabled>
+        </md-input-container>
+        <md-input-container flex>
+         <label>Contact</label>
+         <input ng-model="hall.contact.email" disabled>
+       </md-input-container>
+      </div>
+
+      <md-input-container flex>
+        <label>Kommentar</label>
+        <input ng-model="hall.contact.comment" disabled>
+      </md-input-container>
+
+      <md-input-container flex>
+        <label>Admin Kommentar</label>
+        <input ng-model="hall.comment">
+      </md-input-container>
+
+      <input type="submit" hide ng-disabled="!isChanged()">
+    </form>
+
+  </md-content>
