@@ -23,15 +23,15 @@ angular.module('blacktiger-controllers')
             };
 
             $scope.editHall = function(hall) {
-                $location.path('/halls/' + hall.id)
-            }
+                $location.path('/halls/' + hall.id);
+            };
 
             $scope.getCsvHeader = function() {
                 return ['ID', 'NAME', 'PHONENUMBER', 'POSTALCODE', 'CITY', 'HALLNUMBER', 'CONTACTNAME', 'CONTACTPHONENUMBER', 'CONTACTEMAIL', 'CONTACTCOMMENT'];
             };
 
             $scope.getCsvData = function() {
-                var result = [], i;
+                var result = [];
                 angular.forEach($scope.halls, function(hall) {
                     result.push({
                         id: hall.id,
@@ -47,7 +47,7 @@ angular.module('blacktiger-controllers')
                     });
                 });
                 return result;
-            }
+            };
 
             $scope.$watch(function() {
                 return $scope.data.search;

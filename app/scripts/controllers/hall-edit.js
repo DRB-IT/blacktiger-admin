@@ -16,11 +16,11 @@ angular.module('blacktiger-controllers')
 
             $scope.isChanged = function() {
                 return !angular.equals($scope.hall, $scope.orgHall);
-            }
+            };
 
             $scope.save = function() {
                 RoomSvc.save($scope.hall).$promise.then(function() {
                     $window.history.back();
                 });
-            }
+            };
         });
